@@ -1,0 +1,1 @@
+Tautan menuju aplikasi Adaptable: 
