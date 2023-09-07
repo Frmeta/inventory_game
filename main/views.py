@@ -1,11 +1,16 @@
 from django.shortcuts import render
+from main.models import Item
 
 # Create your views here.
 def show_main(request):
+    # Item.objects.create()
+    items = Item.objects.all()
+    
     context = {
-        'nama aplikasi': 'Inventory: The Game',
+        'nama_aplikasi': 'Inventory: The Game',
         'nama': 'Fredo Melvern Tanzil',
-        'kelas': 'PBP D'
+        'kelas': 'PBP D',
+        'items': items
     }
 
     return render(request, "main.html", context)
