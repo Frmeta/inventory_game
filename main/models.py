@@ -6,3 +6,5 @@ class Item(models.Model):
     amount = models.IntegerField()
     description = models.TextField()
     
+    def __str__(self):
+        return f'{self.name}x{self.amount}'
