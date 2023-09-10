@@ -5,7 +5,7 @@ Tautan menuju aplikasi Adaptable: https://inventory-game.adaptable.app/main/
 ![google](https://qph.cf2.quoracdn.net/main-qimg-305c4af61154add4ecd0cb9dd99b0f18)
 
 
-## Jawaban Pertanyaan
+# Jawaban Pertanyaan
 
 ### 1. Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial).
 - [X] Membuat sebuah proyek Django baru.
@@ -137,7 +137,7 @@ Tautan menuju aplikasi Adaptable: https://inventory-game.adaptable.app/main/
 ### 2. Buatlah bagan yang berisi request client ke web aplikasi berbasis Django beserta responnya dan jelaskan pada bagan tersebut kaitan antara urls.py, views.py, models.py, dan berkas html.
 
 ![Bagan](/PNG/bagan.png)
-Client mengakses browser melalui perangkat elektroniknya kemudian mengetik URL website yang ingin diakses dalam bentuk http://. Browser lalu mengirimkan request HTTP ke Web Server melalui World Wide Web. Setiap request dari client akan diproses pertama kali oleh `urls.py` kemudian request tersebut akan di-forward ke `views.py` yang sesuai. Setelah itu `models.py` akan melakukan transaksi data dari database sesuai permintaan kemudian mengembalikan respon data ke `views.py`. Lalu `views.py` akan mengembalikan response template HTML yang sesuai kepada client.
+* Client mengakses browser melalui perangkat elektroniknya kemudian mengetik URL website yang ingin diakses dalam bentuk http://. Browser lalu mengirimkan request HTTP ke Web Server melalui World Wide Web. Setiap request dari client akan diproses pertama kali oleh `urls.py` kemudian request tersebut akan di-forward ke `views.py` yang sesuai. Setelah itu `models.py` akan melakukan transaksi data dari database sesuai permintaan kemudian mengembalikan respon data ke `views.py`. Lalu `views.py` akan mengembalikan response template HTML yang sesuai kepada client.
 
 
 ### 3. Jelaskan mengapa kita menggunakan virtual environment? Apakah kita tetap dapat membuat aplikasi web berbasis Django tanpa menggunakan virtual environment?
@@ -151,13 +151,13 @@ Client mengakses browser melalui perangkat elektroniknya kemudian mengetik URL w
 
 ### 4. Jelaskan apakah itu MVC, MVT, MVVM dan perbedaan dari ketiganya.
 
-MVT (Model View Template) adalah konsep arsitektur yang digunakan dalam pengembangan web untuk memisahkan komponen-komponen utama dari sebuah aplikasi. Konsep ini memungkinkan pengembang web untuk mengorganisasi dan mengelola kode dengan lebih terstruktur.
+* MVT (Model View Template) adalah konsep arsitektur yang digunakan dalam pengembangan web untuk memisahkan komponen-komponen utama dari sebuah aplikasi. Konsep ini memungkinkan pengembang web untuk mengorganisasi dan mengelola kode dengan lebih terstruktur.
 
-MCV (Model View Controller) adalah model yang biasa digunakan oleh pengembang software. UI (view) dan mekanisme akses data (model) berhubungan dengan erat. View tidak memiliki akses terhadap Controller.
+  MCV (Model View Controller) adalah model yang biasa digunakan oleh pengembang software. UI (view) dan mekanisme akses data (model) berhubungan dengan erat. View tidak memiliki akses terhadap Controller.
 
-MVVM (Model View ViewModel) adalah gabungan dari MVC dan MVP (Model View Presenter) dimana memisahkan dengan jelas pengembangan UI dari logika bisnis dan perilaku dalam aplikasi. View memiliki akses terhadap ViewModel.
+  MVVM (Model View ViewModel) adalah gabungan dari MVC dan MVP (Model View Presenter) dimana memisahkan dengan jelas pengembangan UI dari logika bisnis dan perilaku dalam aplikasi. View memiliki akses terhadap ViewModel.
 
 
-Referensi:
+**Referensi:**
 - [MVC vs MVP vs MVVM](https://agus-hermanto.com/blog/detail/mvc-vs-mvp-vs-mvvm-apa-perbedaannya-mana-yang-terbaik-diantara-ketiganya-a)
 - [Difference Between MVC, MVP and MVVM Architecture Pattern in Android](https://www.geeksforgeeks.org/difference-between-mvc-mvp-and-mvvm-architecture-pattern-in-android/)
