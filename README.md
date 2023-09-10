@@ -136,8 +136,9 @@ Tautan menuju aplikasi Adaptable: https://inventory-game.adaptable.app/main/
 
 ### 2. Buatlah bagan yang berisi request client ke web aplikasi berbasis Django beserta responnya dan jelaskan pada bagan tersebut kaitan antara urls.py, views.py, models.py, dan berkas html.
 
-![Bagan][/PNG/bagan.png]
-urls.py akan
+![Bagan](/PNG/bagan.png)
+Client mengakses browser melalui perangkat elektroniknya kemudian mengetik URL website yang ingin diakses dalam bentuk http://. Browser lalu mengirimkan request HTTP ke Web Server melalui World Wide Web. Setiap request dari client akan diproses pertama kali oleh `urls.py` kemudian request tersebut akan di-forward ke `views.py` yang sesuai. Setelah itu `models.py` akan melakukan transaksi data dari database sesuai permintaan kemudian mengembalikan respon data ke `views.py`. Lalu `views.py` akan mengembalikan response template HTML yang sesuai kepada client.
+
 
 ### 3. Jelaskan mengapa kita menggunakan virtual environment? Apakah kita tetap dapat membuat aplikasi web berbasis Django tanpa menggunakan virtual environment?
 
@@ -154,7 +155,7 @@ MVT (Model View Template) adalah konsep arsitektur yang digunakan dalam pengemba
 
 MCV (Model View Controller) adalah model yang biasa digunakan oleh pengembang software. UI (view) dan mekanisme akses data (model) berhubungan dengan erat. View tidak memiliki akses terhadap Controller.
 
-MVVM (Model View ViewModel) adalah gabungan dari MVC dan MVP(Model View Presenter) dimana memisahkan dengan jelas pengembangan UI dari logika bisnis dan perilaku dalam aplikasi. View memiliki akses terhadap ViewModel.
+MVVM (Model View ViewModel) adalah gabungan dari MVC dan MVP (Model View Presenter) dimana memisahkan dengan jelas pengembangan UI dari logika bisnis dan perilaku dalam aplikasi. View memiliki akses terhadap ViewModel.
 
 
 Referensi:
