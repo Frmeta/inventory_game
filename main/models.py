@@ -6,11 +6,3 @@ class Item(models.Model):
     amount = models.IntegerField()
     description = models.TextField()
     
-    # opsional
-    date_added = models.DateField(auto_now_add=True)
-
-    # untuk nilai bonus
-    # def __init__(self, name, amount, description) -> None:
-    #     self.name = name
-    #     self.amount = amount
-    #     self.description = description
