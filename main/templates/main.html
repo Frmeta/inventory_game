@@ -7,11 +7,25 @@
     
 <p>
 
+<style>
+    #n {
+        font-size: 30px;
+    }
+    div{
+        background-color: aquamarine;
+        display: flex;
+        width: 100px;
+    }
+</style>
+
+
 <h3>Items:</h3>
 <ul>
     {% for item in items %}
     <li>
-        <h3>{{ item.name }}</h3>
+        <div>
+            <h3 id="n">{{ item.name }}</h3>
+        </div>
         <p>Amount: {{ item.amount }}</p>
         <p>Description: {{ item.description }}</p>
     </li>
