@@ -35,3 +35,15 @@
     {% endfor %}
 </ul>
 
+<h3>Items 2:</h3>
+<ul>
+    {% for item in items2 %}
+    <li>
+        <div>
+            <h3 id="n">{{ item.name }}</h3>
+        </div>
+        <p>Amount: {{ item.amount }}</p>
+        <p>Description: {{ item.description }}</p>
+    </li>
+    {% endfor %}
+</ul>
