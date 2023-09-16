@@ -87,7 +87,6 @@ Tautan menuju aplikasi Adaptable: https://inventory-game.adaptable.app/main/
         from main.models import Item
 
         def show_main(request):
-            # Item.objects.create()
             items = Item.objects.all()
             
             context = {
@@ -183,42 +182,17 @@ Biasanya untuk mengirim data-data penting/sensitif seperti password     | Biasan
 
 ### 2. Apa perbedaan utama antara XML, JSON, dan HTML dalam konteks pengiriman data?
 
-- JSON (JavaScript Object Notation)
+- **XML (eXtensible Markup Language)** adalah format pertukaran data dengan struktur pohon yang menyajikan lapisan informasi yang dapat Anda ikuti dan baca. Pohon ini dimulai dengan elemen akar/induk sebelum memberikan informasi tentang elemen anak. XML memiliki struktur yang mirip dengan HTML yaitu menggunakan tag dan atribut untuk mengatur dan menggambarkan struktur data. XML juga menggunakan tanda akhiran, yang membuatnya menjadi lebih panjang daripada JSON.
 
-  JSON adalah format pertukaran data yang digunakan untuk menyimpan dan mengirim data dalam bentuk objek. 
-- JSON bersifat independen dari setiap bahasa pemrograman dan merupakan output API umum dalam berbagai aplikasi.
+- **JSON (JavaScript Object Notation)** adalah format pertukaran data yang menggunakan pasangan key (berupa string) dan value, sehingga membuatnya lebih padat dan lebih mudah dibaca oleh manusia. 
 
-  JSON menggunakan pasangan kunci-nilai untuk membuat struktur seperti peta. Kuncinya adalah string, yang akan mengidentifikasi pasangan. Nilainya adalah informasi yang Anda berikan pada kunci tersebut. Misalnya, kita memiliki “NumberProperty”: 10. Di sini, “NumberProperty” adalah kuncinya dan 10 adalah nilainya.
-
-
-  JSON tidak menggunakan tanda, sehingga membuatnya lebih padat dan lebih mudah dibaca oleh manusia. 
-
-      Penguraian JSON lebih aman daripada XML.
-
-
-- XML (eXtensible Markup Language)
-
-  XML adalah bahasa markah yang menyediakan aturan untuk menentukan data apa pun. XML menggunakan tanda untuk membedakan antara atribut data dan data aktual. XML sering digunakan dalam pertukaran data antara sistem yang berbeda.
-
-  Sebaliknya, XML adalah bahasa markah—subset dari SGML dengan struktur yang mirip dengan HTML. XML menyimpan data dalam struktur pohon yang menyajikan lapisan informasi yang dapat Anda ikuti dan baca. Pohon ini dimulai dengan elemen akar (induk) sebelum memberikan informasi tentang elemen anak. Struktur ekspansif ini sangat membantu untuk memuat banyak variabel dan konfigurasi dinamis. 
-
-  XML menggunakan tag dan atribut untuk mengatur dan menggambarkan struktur data.
-
-  XML lebih bertele-tele dan mengganti karakter-karakter tertentu untuk referensi entitas. Misalnya, alih-alih menggunakan karakter <, XML menggunakan referensi entitas &it;. XML juga menggunakan tanda akhiran, yang membuatnya menjadi lebih panjang daripada JSON.
-
-  Sebagai bahasa markah, XML lebih kompleks dan membutuhkan struktur tanda.
-
-  Struktur XML rentan terhadap modifikasi yang tidak sah, yang memunculkan risiko keamanan
-
-
-- HTML (Hypertext Markup Language) 
-  adalah bahasa markup yang digunakan untuk membuat dan mengatur konten web. HTML digunakan untuk membangun struktur dan tampilan halaman web, dan tidak secara khusus dirancang untuk pengiriman data. Meskipun demikian, HTML bisa digunakan untuk mengirim data dalam bentuk formulir atau melalui parameter URL. HTML digunakan untuk membuat dan mengatur tampilan halaman web.
+- **HTML (Hypertext Markup Language)** adalah bahasa markup yang digunakan untuk membangun struktur dan tampilan halaman web tapi tidak secara khusus dirancang untuk pengiriman data. Meskipun demikian HTML bisa digunakan untuk mengirim data dalam bentuk formulir atau melalui parameter URL.
 
 
 ### 3. Mengapa JSON sering digunakan dalam pertukaran data antara aplikasi web modern?
-- JSON menggunakan *syntax* yang mirip dengan bahasa pemrograman JavaScript sehingga mudah dibaca dan ditulis baik oleh manusia maupun mesin. Ini memungkinkan Anda untuk mendefinisikan objek dengan mudah.
-- JSON adalah opsi yang lebih baru, lebih fleksibel, dan lebih populer.
-- Sintaksis yang digunakan dalam JSON lebih padat
+- JSON bersifat independen dari setiap bahasa pemrograman dan merupakan output API umum dalam berbagai aplikasi.
+- JSON menggunakan *syntax* yang mirip dengan bahasa pemrograman JavaScript, sehingga mudah dibaca dan ditulis baik oleh manusia maupun mesin.
+- JSON merupakan opsi yang cenderung lebih baru, lebih fleksibel, dan lebih populer.
 - JSON dapat merepresentasikan data yang sama dalam ukuran file yang lebih kecil untuk transfer data yang lebih cepat.
 - Penguraian JSON ebih aman daripada XML
 
@@ -237,7 +211,7 @@ Biasanya untuk mengirim data-data penting/sensitif seperti password     | Biasan
              fields = ["name", "amount", "description"]
      ```
       
-  2. Mengubah fungsi `show_main` dan membuat fungsi `create_item` pada `views.py` 
+  2. Menambah fungsi `create_item` pada `views.py` dan import library yang diperlukan
       ```py
       from django.shortcuts import render
       from main.models import Item
@@ -246,17 +220,7 @@ Biasanya untuk mengirim data-data penting/sensitif seperti password     | Biasan
       from main.forms import ItemForm
       from django.urls import reverse
 
-      def show_main(request):
-            items = Item.objects.all()
-            
-            context = {
-                  'nama_aplikasi': 'Inventory: The Game',
-                  'nama': 'Fredo Melvern Tanzil',
-                  'kelas': 'PBP D',
-                  'items': items
-            }
-
-            return render(request, "main.html", context)
+      ...
       
       def create_item(request):
             form = ItemForm(request.POST or None)
@@ -299,44 +263,109 @@ Biasanya untuk mengirim data-data penting/sensitif seperti password     | Biasan
       {% endblock %}
       ```
 
-  5. Untuk menampilkan item apa saja yang sudah ditambahkan, tambahkan kode berikut pada `main.html`:
-      ```html
-      ...
-      <table>
-            <tr>
-                  <th>Name</th>
-                  <th>Amount</th>
-                  <th>Description</th>
-                  <th>Date Added</th>
-            </tr>
-
-            {% comment %} Berikut cara memperlihatkan data item di bawah baris ini {% endcomment %}
-
-            {% for item in items %}
-                  <tr>
-                        <td>{{item.name}}</td>
-                        <td>{{item.amount}}</td>
-                        <td>{{item.description}}</td>
-                        <td>{{item.date_added}}</td>
-                  </tr>
-            {% endfor %}
-      </table>
-
-      <br />
-
-      <a href="{% url 'main:create_item' %}">
-      <button>
-            Add New Item
-      </button>
-      </a>
-
-      {% endblock content %}
-      ```
 - [X] Tambahkan 5 fungsi views untuk melihat objek yang sudah ditambahkan dalam format HTML, XML, JSON, XML by ID, dan JSON by ID.
+  1. Untuk dilihat dalam format tabel HTML, ambil seluruh item dari database dengan `Item.objects.all()` kemudian masukkan sebagai value pada `context` di `views.py`
+       ```py
+       def show_main(request):
+            items = Item.objects.all()
+            
+            context = {
+                  'nama_aplikasi': 'Inventory: The Game',
+                  'nama': 'Fredo Melvern Tanzil',
+                  'kelas': 'PBP D',
+                  'items': items
+            }
+            return render(request, "main.html", context)
+       ```
+
+     Kemudian tambahkan kode berikut pada `main.html`:
+       ```html
+       ...
+       <table>
+             <tr>
+                   <th>Name</th>
+                   <th>Amount</th>
+                   <th>Description</th>
+                   <th>Date Added</th>
+             </tr>
+ 
+             {% for item in items %}
+                   <tr>
+                         <td>{{item.name}}</td>
+                         <td>{{item.amount}}</td>
+                         <td>{{item.description}}</td>
+                         <td>{{item.date_added}}</td>
+                   </tr>
+             {% endfor %}
+       </table>
+ 
+       <br />
+ 
+       <a href="{% url 'main:create_item' %}">
+       <button>
+             Add New Item
+       </button>
+       </a>
+ 
+       {% endblock content %}
+       ```
+
+  2. Untuk melihat dalam bentuk XML, buat fungsi `show_xml` pada `main.py`
+       ```py
+       def show_xml(request):
+            data = Item.objects.all()
+            return HttpResponse(serializers.serialize("xml", data), content_type="application/xml")
+       ```
+
+  3. Untuk melihat dalam bentuk JSON, buat fungsi `show_json` pada `main.py`
+       ```py
+       def show_json(request):
+            data = Item.objects.all()
+            return HttpResponse(serializers.serialize("json", data), content_type="application/json")
+
+       ```
+  4. Untuk melihat dalam bentuk XML by ID, buat fungsi `show_xml_by_id` pada `main.py`
+       ```py
+       def show_xml_by_id(request, id):
+            data = Product.objects.filter(pk=id)
+            return HttpResponse(serializers.serialize("xml", data), content_type="application/xml")
+       ```
+  5. Untuk melihat dalam bentu JSON by ID, buat fungsi `show_json_by_id` pada `main.py`
+       ```py
+       def show_json_by_id(request, id):
+            data = Product.objects.filter(pk=id)
+            return HttpResponse(serializers.serialize("json", data), content_type="application/json")
+       ```
+
 - [X] Membuat routing URL untuk masing-masing views yang telah ditambahkan pada poin 2.
+  1. Menambahkan potongan kode berikut ke `urlpatterns` pada `urls.py`
+     ```py
+      urlpatterns = [
+            path('', show_main, name='show_main'), # routing HTML
+            path('create-item', create_item, name='create_item'),
+            path ('xml/', show_xml, name='show_xml'), # routing XML
+            path('json/', show_json, name='show_json'), # routing JSON
+            path('xml/<int:id>/', show_xml_by_id, name='show_xml_by_id'), # routing XML by ID
+            path('json/<int:id>/', show_json_by_id, name='show_json_by_id'), # routing JSON by ID
+      ```
 
-### 5. Mengakses kelima URL di poin 2 menggunakan Postman, membuat screenshot dari hasil akses URL pada Postman, dan menambahkannya ke dalam README.md.
 
+<details>
+<summary>Screenshot Postman</summary>
+
+<img href="/PNG/html.png"> </img>
+HTML:
+![HTML](/PNG/html.png)
+XML:
+![XML](/PNG/xml.png)
+JSON:
+![JSON](/PNG/json.png)
+XML by ID:
+![XML by ID](/PNG/xml_by_id.png)
+JSON by ID:
+![JSON by ID](/PNG/json_by_id.png)
+
+</details>
 
 **Referensi:**
 - [Perbedaan JSON dan XML](https://aws.amazon.com/id/compare/the-difference-between-json-xml/)
