@@ -226,18 +226,18 @@ Biasanya untuk mengirim data-data penting/sensitif seperti password     | Biasan
 
 ### 4. Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial).
 - [X] Membuat input form untuk menambahkan objek model pada app sebelumnya.
-      1. Membuat `forms.py` pada direktori main untuk membuat struktur form
-      ```py
-      from django.forms import ModelForm
-      from main.models import Item
+  1. Membuat `forms.py` pada direktori main untuk membuat struktur form
+     ```py
+     from django.forms import ModelForm
+     from main.models import Item
 
-      class ItemForm(ModelForm):
-      class Meta:
-            model = Item
-            fields = ["name", "amount", "description"]
-      ```
-
-      2. Mengubah fungsi `show_main` dan membuat fungsi `create_item` pada `views.py` 
+     class ItemForm(ModelForm):
+         class Meta:
+             model = Item
+             fields = ["name", "amount", "description"]
+     ```
+      
+  2. Mengubah fungsi `show_main` dan membuat fungsi `create_item` pada `views.py` 
       ```py
       from django.shortcuts import render
       from main.models import Item
@@ -269,12 +269,14 @@ Biasanya untuk mengirim data-data penting/sensitif seperti password     | Biasan
             return render(request, "create_item.html", context)
       ```
 
-      3. Pada `urls.py`, import fungsi `create_item` kemudian tambahkan pada `urlpatterns`
+  3. Pada `urls.py`, import fungsi `create_item` kemudian tambahkan pada `urlpatterns`
       ```py
+      ...
       path('create-item', create_item, name='create_item'),
+      ...
       ```
 
-      4. Buat `create_product.html` pada `main/templates` yang berisi:
+  4. Buat `create_item.html` pada `main/templates` yang berisi:
       ```html
       {% extends 'base.html' %} 
 
@@ -282,49 +284,49 @@ Biasanya untuk mengirim data-data penting/sensitif seperti password     | Biasan
       <h1>Add New Item</h1>
 
       <form method="POST">
-      {% csrf_token %}
-      <table>
-            {{ form.as_table }}
-            <tr>
-                  <td></td>
-                  <td>
-                  <input type="submit" value="Add Item"/>
-                  </td>
-            </tr>
-      </table>
+            {% csrf_token %}
+            <table>
+                  {{ form.as_table }}
+                  <tr>
+                        <td></td>
+                        <td>
+                        <input type="submit" value="Add Item"/>
+                        </td>
+                  </tr>
+            </table>
       </form>
 
       {% endblock %}
       ```
 
-      5. Untuk menampilkan produk apa saja yang sudah ditambahkan, tambahkan kode berikut pada `main.html`:
+  5. Untuk menampilkan item apa saja yang sudah ditambahkan, tambahkan kode berikut pada `main.html`:
       ```html
       ...
       <table>
-      <tr>
-            <th>Name</th>
-            <th>Price</th>
-            <th>Description</th>
-            <th>Date Added</th>
-      </tr>
-
-      {% comment %} Berikut cara memperlihatkan data produk di bawah baris ini {% endcomment %}
-
-      {% for product in products %}
             <tr>
-                  <td>{{product.name}}</td>
-                  <td>{{product.price}}</td>
-                  <td>{{product.description}}</td>
-                  <td>{{product.date_added}}</td>
+                  <th>Name</th>
+                  <th>Amount</th>
+                  <th>Description</th>
+                  <th>Date Added</th>
             </tr>
-      {% endfor %}
+
+            {% comment %} Berikut cara memperlihatkan data item di bawah baris ini {% endcomment %}
+
+            {% for item in items %}
+                  <tr>
+                        <td>{{item.name}}</td>
+                        <td>{{item.amount}}</td>
+                        <td>{{item.description}}</td>
+                        <td>{{item.date_added}}</td>
+                  </tr>
+            {% endfor %}
       </table>
 
       <br />
 
-      <a href="{% url 'main:create_product' %}">
+      <a href="{% url 'main:create_item' %}">
       <button>
-            Add New Product
+            Add New Item
       </button>
       </a>
 
