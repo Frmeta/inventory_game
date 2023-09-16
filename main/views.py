@@ -5,13 +5,17 @@ from django.core import serializers
 from main.forms import ItemForm
 from django.urls import reverse
 
+from django.contrib import messages
+
 def show_main(request):
     items = Item.objects.all()
+    items_amount = len(items)
     
     context = {
         'nama_aplikasi': 'Inventory: The Game',
         'nama': 'Fredo Melvern Tanzil',
         'kelas': 'PBP D',
+        'items_amount': items_amount,
         'items': items
     }
 
@@ -22,6 +26,11 @@ def create_item(request):
 
     if form.is_valid() and request.method == "POST":
         form.save()
+
+        item_name = form.cleaned_data['name']
+        item_amount = form.cleaned_data['amount']
+        
+        messages.success(request, f"Kamu berhasil menyimpan {item_name} sebanyak {item_amount}.")
         return HttpResponseRedirect(reverse('main:show_main'))
 
     context = {'form': form}

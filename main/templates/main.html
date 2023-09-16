@@ -16,6 +16,18 @@ width="150", height="200"></img>
     
 
 <h3>Items:</h3>
+{% if messages %}
+<a class="messages">
+    {% for message in messages %}
+    <a {% if message.tags %} class="{{ message.tags }}"{% endif %}>
+        {{ message }}
+    </a>
+    {% endfor %}
+</a>
+{% endif %}
+
+<p>
+Kamu menyimpan {{items_amount}} jenis item pada aplikasi ini
 
 <table class="styled-table">
     <tr>
