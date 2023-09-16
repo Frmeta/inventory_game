@@ -1,15 +1,12 @@
-<style>
-    body {
-        background-color: black;
-        color: whitesmoke;
-    }
-</style>
+{% extends 'base.html' %}
 
+{% block content %}
 
 
 <h1>{{ nama_aplikasi }}</h1>
 
-<img src = "https://qph.cf2.quoracdn.net/main-qimg-305c4af61154add4ecd0cb9dd99b0f18"></img>
+<img src = "https://qph.cf2.quoracdn.net/main-qimg-305c4af61154add4ecd0cb9dd99b0f18"
+width="150", height="200"></img>
 
 
 <h5>Name: </h5>
@@ -17,33 +14,35 @@
 <h5>Class: </h5>
 <p>{{ kelas }}<p>
     
-<p>
-
-
-
 
 <h3>Items:</h3>
-<ul>
-    {% for item in items %}
-    <li>
-        <div>
-            <h3 id="n">{{ item.name }}</h3>
-        </div>
-        <p>Amount: {{ item.amount }}</p>
-        <p>Description: {{ item.description }}</p>
-    </li>
-    {% endfor %}
-</ul>
 
-<h3>Items 2:</h3>
-<ul>
-    {% for item in items2 %}
-    <li>
-        <div>
-            <h3 id="n">{{ item.name }}</h3>
-        </div>
-        <p>Amount: {{ item.amount }}</p>
-        <p>Description: {{ item.description }}</p>
-    </li>
+<table class="styled-table">
+    <tr>
+        <th>Name</th>
+        <th>Amount</th>
+        <th>Description</th>
+        <th>Date Added</th>
+    </tr>
+
+    {% comment %} Berikut cara memperlihatkan data item di bawah baris ini {% endcomment %}
+
+    {% for item in items %}
+        <tr>
+            <td>{{item.name}}</td>
+            <td>{{item.amount}}</td>
+            <td>{{item.description}}</td>
+            <td>{{item.date_added}}</td>
+        </tr>
     {% endfor %}
-</ul>
+</table>
+
+<br />
+
+<a href="{% url 'main:create_item' %}">
+    <button>
+        Add New Item
+    </button>
+</a>
+
+{% endblock content %}

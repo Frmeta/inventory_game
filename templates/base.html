@@ -1,0 +1,49 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0"
+        />
+        {% block meta %}
+        {% endblock meta %}
+    </head>
+
+    <body>
+        <style>
+            body {
+                background-color: rgb(33, 29, 29);
+                color: rgb(231, 210, 210);
+            }
+
+            .styled-table {
+                width: 100%;
+                font-size: 1.2em;
+                border: 1px solid #ddd;
+            }
+
+            .styled-table th, .styled-table td {
+                padding: 12px 15px;
+            }
+
+            .styled-table th {
+                background-color: rgb(33, 29, 29);
+                color: rgb(231, 210, 210);
+            }
+
+            .styled-table tr:nth-child(even) {
+                background-color: #342323;
+            }
+
+            .styled-table tr:hover {
+                background-color: #994141;
+            }
+
+        </style>
+
+        {% block content %}
+        {% endblock content %}
+    </body>
+</html>
