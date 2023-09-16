@@ -327,13 +327,13 @@ Biasanya untuk mengirim data-data penting/sensitif seperti password     | Biasan
   4. Untuk melihat dalam bentuk XML by ID, buat fungsi `show_xml_by_id` pada `main.py`
        ```py
        def show_xml_by_id(request, id):
-            data = Product.objects.filter(pk=id)
+            data = Item.objects.filter(pk=id)
             return HttpResponse(serializers.serialize("xml", data), content_type="application/xml")
        ```
   5. Untuk melihat dalam bentu JSON by ID, buat fungsi `show_json_by_id` pada `main.py`
        ```py
        def show_json_by_id(request, id):
-            data = Product.objects.filter(pk=id)
+            data = Item.objects.filter(pk=id)
             return HttpResponse(serializers.serialize("json", data), content_type="application/json")
        ```
 
@@ -347,6 +347,7 @@ Biasanya untuk mengirim data-data penting/sensitif seperti password     | Biasan
             path('json/', show_json, name='show_json'), # routing JSON
             path('xml/<int:id>/', show_xml_by_id, name='show_xml_by_id'), # routing XML by ID
             path('json/<int:id>/', show_json_by_id, name='show_json_by_id'), # routing JSON by ID
+      ]
       ```
 
 
