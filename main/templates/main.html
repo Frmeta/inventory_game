@@ -13,7 +13,9 @@ width="150", height="200"></img>
 <p>{{nama}}<p>
 <h5>Class: </h5>
 <p>{{ kelas }}<p>
-    
+<h5>Logged in as: </h5>
+<p>{{ user_name }}<p>
+
 
 <h3>Items:</h3>
 {% if messages %}
@@ -51,9 +53,17 @@ Kamu menyimpan {{items_amount}} jenis item pada aplikasi ini
 
 <br />
 
+<h5>Sesi terakhir login: {{ last_login }}</h5>
+
 <a href="{% url 'main:create_item' %}">
     <button>
         Add New Item
+    </button>
+</a>
+
+<a href="{% url 'main:logout' %}">
+    <button>
+        Logout
     </button>
 </a>
 
