@@ -527,6 +527,7 @@ Sedangkan otorisasi memutuskan izin (apa saja yang diperbolehkan dan tidak diper
    ```
 
 4. Untuk membuat dua akun pengguna, jalankan server di lokal kemudian klik 'Register Now' dan masukkan username dan password untuk membuat dua akun.
+
         Akun 1:
         Username: fredo1
         Password: fredomelvern
@@ -609,7 +610,11 @@ Sedangkan otorisasi memutuskan izin (apa saja yang diperbolehkan dan tidak diper
 
    Untuk menghapuse cookie tersebut ketika logout, tambahkan kode berikut pada function logout_user pada `views.py`
    ```py
-   response.delete_cookie('last_login')
+   def logout_user(request):
+        logout(request)
+        response = HttpResponseRedirect(reverse('main:login'))
+        response.delete_cookie('last_login')
+        return response
    ```
 
 

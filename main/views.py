@@ -94,3 +94,24 @@ def show_xml_by_id(request, id):
 def show_json_by_id(request, id):
     data = Item.objects.filter(pk=id)
     return HttpResponse(serializers.serialize("json", data), content_type="application/json")
+
+def add(request, id):
+    a = Item.objects.get(pk=id)
+    a.amount += 1
+    a.save()
+    return redirect('main:show_main')
+
+def remove(request, id):
+    a = Item.objects.get(pk=id)
+    a.amount -= 1
+    a.save()
+
+    if (a.amount <= 0):
+        a.delete()
+
+    return redirect('main:show_main')
+
+def remove_all(request, id):
+    a = Item.objects.get(pk=id)
+    a.delete()
+    return redirect('main:show_main')

@@ -37,6 +37,9 @@ Kamu menyimpan {{items_amount}} jenis item pada aplikasi ini
         <th>Amount</th>
         <th>Description</th>
         <th>Date Added</th>
+        <th>Add 1</th>
+        <th>Remove 1</th>
+        <th>Remove All</th>
     </tr>
 
     {% comment %} Berikut cara memperlihatkan data item di bawah baris ini {% endcomment %}
@@ -47,6 +50,9 @@ Kamu menyimpan {{items_amount}} jenis item pada aplikasi ini
             <td>{{item.amount}}</td>
             <td>{{item.description}}</td>
             <td>{{item.date_added}}</td>
+            <td><a href="/add/{{item.pk}}/"><button>+</button></a></td>
+            <td><a href="/remove/{{item.pk}}/"><button>-</button></a></td>
+            <td><a href="/remove-all/{{item.pk}}/"><button>Remove All</button></a></td>
         </tr>
     {% endfor %}
 </table>
