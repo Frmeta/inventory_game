@@ -619,3 +619,186 @@ Sedangkan otorisasi memutuskan izin (apa saja yang diperbolehkan dan tidak diper
 
 
 </details>
+
+<details>
+<summary>Tugas 5</summary>
+
+### Jelaskan manfaat dari setiap element selector dan kapan waktu yang tepat untuk menggunakannya.
+
+*Element selector* digunakan untuk memilih elemen HTML yang ingin di-style berdasarkan kategori tertentu. Element selectors dalam CSS dapat dibagi menjadi 5 macam:
+
+- Universal selector (*)
+  - Untuk memilih semua elemen di file HTML termasuk elemen di dalamnya.
+  - Digunaan saat ingin men-style dasar atau menghindari styling default browser
+
+- Simple selectors
+  - Element selector:
+    - Untuk memilih semua elemen dengan tipe sama (misalnya p, h1, h2)
+    - Digunakan saat ingin memberi style yang seragam kepada elemen dengan tipe tertentu.
+  - Id selector (#):
+    - Untuk memilih elemen berdasarkan ID
+    - Digunakan untuk memberi style kepada elemen yang memiliki ID unik tertentu.
+  - Class selector (.):
+    - Untuk memilih elemen berdasarkan nama kelasnya
+    - Digunakan saat ingin memberi style yang seragam kepada elemen dengan kelas tertentu.
+
+- Combinator selectors:
+  - Untuk memilih elemen berdasarkan hubungannya dengan elemen lain.
+  - Digunakan saat ingin menghubungkan dua atau lebih selector untuk merincikan lebih lanjut elemen-elemen yang ingin dipilih
+
+- Pseudo-class selectors:
+  - Untuk memilih elemen berdasarkan state tertentu, misalnya saat mouse hover di atasnya
+  - Digunakan saat ingin memberi efek pada elemen ketika berinteraksi dengan pengguna.
+
+- Pseudo-elements selectors:
+  - Untuk memilih bagian spesifik dari elemen, misalnya huruf pertama.
+  - Digunakan saat ingin menambahkan styling tambahan pada elemen
+- Attribute selectors ([attribute]):
+
+  - Untuk memilih elemen dengan atribut HTML tertentu.
+  - Digunakan saat ingin memilih elemen yang memiliki atribut tertenty, misalnya  `input[type="text"]`.
+
+
+### Jelaskan HTML5 Tag yang kamu ketahui.
+
+- title: mendefinisikan judul halaman yang ditampilkan di tab browser.
+- style: untuk menempatkan kode CSS langsung di dalam dokumen HTML.
+- body: elemen yang berisi semua konten yang akan ditampilkan di halaman web
+- article: menggambarkan sebuah konten independen yang bisa berdiri sendiri, seperti posting blog atau artikel berita.
+- footer: mengatur bagian bawah halaman.
+- video: memasukkan pemutar video dalam halaman web.
+- audio: memasukkan pemutar audio dalam halaman web.
+- input: untuk membuat input form, seperti teks, kata sandi, radio button, checkbox
+- button: untuk membuat tombol yang dapat diklik oleh pengguna.
+- div: untuk mengelompokkan elemen HTML.
+- h1, h2, .., h6: header dan subheader
+
+### Jelaskan perbedaan antara margin dan padding.
+
+**Margin**
+- digunakan untuk menata letak dari sisi luar
+- biasanya tidak memiliki warna
+
+**Padding**
+- digunakan untuk menata letak dari sisi dalam
+- bisa menggunakan unsur warna sesuai dengan warna background halamannya
+
+
+### Jelaskan perbedaan antara framework CSS Tailwind dan Bootstrap. Kapan sebaiknya kita menggunakan Bootstrap daripada Tailwind, dan sebaliknya?
+
+Tailwind CSS:
+- desain fleksibel dan memungkinkan membangun tampilan dengan cara yang lebih terperinci.
+- tampilan dapat dikonfigurasi dengan cepat dan mudah.
+- ukuran file lebih ringan karena hanya memuat style yang digunakan
+- Digunakan ketika membutuhkan tingkat kostumisasi yang tinggi dan mengurangi penumpukan berkas yang tidak digunakan.
+
+Bootsrap:
+- desain yang lebih terstruktur dan telah mendefinisikan gaya tampilan yang lebih kohesif. Menggunakan kelas CSS yang sudah memiliki style yang ditentukan.
+- kustomisasinya mungkin memerlukan penyesuaian lebih lanjut.
+- ukuran file besar karena sudah termasuk banyak komponen dan gaya yang berbeda.
+- digunakan untuk membangun prototype dengan cepat tanpa menulis kode CSS dan dengan gaya yang sudah ditentukan.
+
+### Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step
+
+Untuk membuat navigation bar, saya terlebih dahulu membuat ordered list dengan html kemudian distyle dengan css sebagai berikut
+  ```html
+  <ul class="my-navbar">
+    <li class="nama-aplikasi">{{nama_aplikasi}}</li>
+    <li class="user-name">
+      Welcome, {{user_name}}
+      <a href="{% url 'main:logout' %}"> Logout </a>
+    </li>
+  </ul>
+  ```
+  ```css
+            ul.my-navbar{
+                list-style-type: none;
+                margin: 0;
+                padding: 13px;
+                background-color: #001524;
+                overflow: hidden;
+                
+                color: #FDE5D4;
+                
+
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                
+                top: 0;
+                width: 100%;
+                position: sticky;
+            }
+            li.nama-aplikasi
+                font-weight:600;
+                font-size:25px;
+            li a{
+                color: #FDE5D4;
+                text-decoration: none;
+                padding-left: 15px;
+            }
+            li a:hover{
+                color: #FDE5D4;
+                text-decoration: underline;
+            }
+  ```
+
+Untuk membuat desain halaman login dan register, saya menamakan mereka sebagai class `login` dan register dengan id `register` kemudian di-style dengan css:
+```css
+            .login{
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+            .login table{
+                width: 400px;
+                height: 200px;
+                
+                border-radius: 20px;
+                background-color: #D6CC99;
+                margin: 40px;
+            }
+            .login td{
+                
+                padding: 20px;
+            }
+            #register table{
+                width: 600px;
+            }
+            #register ul{
+                text-align: left;
+            }
+```
+Untuk kostumisasi halaman daftar inventory menjadi lebih berwarna saya memasukkan tabel ke dalam class `styled-table` kemudian di-style dengan css sebagai berikut (kode css ini juga mengimplementasi bonus task untuk memberi warna teks dan background pada baris terakhir tabel):
+```css
+            .styled-table {
+                width: 100%;
+                font-size: 1em;
+                border: 1px solid #001524;
+            }
+            .styled-table th, .styled-table td {
+                padding: 12px 15px;
+            }
+            .styled-table th {
+                background-color: rgb(33, 29, 29);
+                color: #fdd300;
+            }
+            .styled-table tr:nth-child(even) {
+                background-color: #D6CC99;
+            }
+            .styled-table tr:nth-child(odd) {
+                background-color: #c3b983;
+            }
+            .styled-table tr:last-child{
+                color:yellow;
+                font-weight: 600;
+                background-color: #c8b966;
+            }
+            .styled-table tr:hover {
+                background-color: #d8c45e;
+            }
+```
+
+
+</details>

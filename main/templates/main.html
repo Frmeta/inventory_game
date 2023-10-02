@@ -1,29 +1,30 @@
 {% extends 'base.html' %}
 
 {% block content %}
+{% load static %}
+  <ul class="my-navbar">
+    <li class="nama-aplikasi">{{nama_aplikasi}}</li>
+    <li class="user-name">
+      Welcome, {{user_name}}
+      <a href="{% url 'main:logout' %}"> Logout </a>
+    </li>
+  </ul>
 
+<div class="aurora-background">
+    <div>Website made by:</div>
+    <div><button class="identitas">{{nama}}</button></div>
+    <div><button class="identitas">{{ kelas }}</button></div>
+</div>
 
-<h1>{{ nama_aplikasi }}</h1>
-
-<img src = "https://qph.cf2.quoracdn.net/main-qimg-305c4af61154add4ecd0cb9dd99b0f18"
-width="150", height="200"></img>
-
-
-<h5>Name: </h5>
-<p>{{nama}}<p>
-<h5>Class: </h5>
-<p>{{ kelas }}<p>
-<h5>Logged in as: </h5>
-<p>{{ user_name }}<p>
-
+    
 
 <h3>Items:</h3>
 {% if messages %}
 <a class="messages">
     {% for message in messages %}
-    <a {% if message.tags %} class="{{ message.tags }}"{% endif %}>
+    <p {% if message.tags %} class="{{ message.tags }}"{% endif %}>
         {{ message }}
-    </a>
+    </p>
     {% endfor %}
 </a>
 {% endif %}
@@ -50,9 +51,9 @@ Kamu menyimpan {{items_amount}} jenis item pada aplikasi ini
             <td>{{item.amount}}</td>
             <td>{{item.description}}</td>
             <td>{{item.date_added}}</td>
-            <td><a href="/add/{{item.pk}}/"><button>+</button></a></td>
-            <td><a href="/remove/{{item.pk}}/"><button>-</button></a></td>
-            <td><a href="/remove-all/{{item.pk}}/"><button>Remove All</button></a></td>
+            <td><a href="/add/{{item.pk}}/"><button class="edit">+</button></a></td>
+            <td><a href="/remove/{{item.pk}}/"><button class="edit">-</button></a></td>
+            <td><a href="/remove-all/{{item.pk}}/"><button class="edit">X</button></a></td>
         </tr>
     {% endfor %}
 </table>
@@ -62,14 +63,8 @@ Kamu menyimpan {{items_amount}} jenis item pada aplikasi ini
 <h5>Sesi terakhir login: {{ last_login }}</h5>
 
 <a href="{% url 'main:create_item' %}">
-    <button>
+    <button class="add-new">
         Add New Item
-    </button>
-</a>
-
-<a href="{% url 'main:logout' %}">
-    <button>
-        Logout
     </button>
 </a>
 
