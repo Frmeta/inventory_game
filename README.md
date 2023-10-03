@@ -698,7 +698,7 @@ Bootsrap:
 - ukuran file besar karena sudah termasuk banyak komponen dan gaya yang berbeda.
 - digunakan untuk membangun prototype dengan cepat tanpa menulis kode CSS dan dengan gaya yang sudah ditentukan.
 
-### Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step
+### Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-stepas
 
 Untuk membuat navigation bar, saya terlebih dahulu membuat ordered list dengan html kemudian distyle dengan css sebagai berikut
   ```html
