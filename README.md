@@ -2,14 +2,14 @@
 Ini adalah repository Github untuk projek Inventory: The game!
 Tautan menuju aplikasi Adaptable: https://inventory-game.adaptable.app/main/
 
-![google](https://qph.cf2.quoracdn.net/main-qimg-305c4af61154add4ecd0cb9dd99b0f18)
+![google](/PNG/Title.png)
 
 
 ## Jawaban Pertanyaan
 <details>
 <summary> Tugas 2 </summary>
 
-### 1. Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial).
+### 1. Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step.
 - [X] Membuat sebuah proyek Django baru.
   1. Membuat direktori bernama `inventory_game`
   2. Membuat virtual environment dengan menjalankan perintah berikut di powershell
@@ -198,7 +198,7 @@ Biasanya untuk mengirim data-data penting/sensitif seperti password     | Biasan
 
   
 
-### 4. Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial).
+### 4. Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step.
 - [X] Membuat input form untuk menambahkan objek model pada app sebelumnya.
   1. Membuat `forms.py` pada direktori main untuk membuat struktur form
      ```py
@@ -395,7 +395,7 @@ Sedangkan otorisasi memutuskan izin (apa saja yang diperbolehkan dan tidak diper
   Namun situs-situs yang mencurigakan harus diwaspadai. Misalnya website streaming ilegal yang berisi 10 iklan online. Situs web pihak ketiga yang tertaut ke iklan tersebut akan menghasilkan 100 cookie meskipun pengguna tidak pernah mengklik iklan tersebut.
 
 
-#### Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial).
+#### Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step.
 
 1. Untuk mengimplementasi fungsi registrasi, buat function di `views.py`
    ```py
@@ -808,7 +808,7 @@ Untuk kostumisasi halaman daftar inventory menjadi lebih berwarna saya memasukka
 
 Synchronous programming menjalankan fungsi berurutan, artinya agar dapat menjalankan fungsi berikutnya, program harus menunggu fungsi sebelumnya selesai. Aprroach ini dapat mengakibatkan waktu tunggu yang lama jika ada salah satu tugas yang memakan waktu lama.
 
-Sedangkan syncrhonous programming tidak menjalankan fungsi secara berulutan, artinya kita tidka perlu mengunggu suatu fungsi selesai dijalankan untuk menjalankan fungsi lainnya. Approach ini berguna dalam situasi di mana ingin menjalankan beberapa tugas secara bersamaan atau saat ada tugas yang harus menunggu sumber daya eksternal, seperti permintaan HTTP atau akses database.
+Sedangkan asyncrhonous programming tidak menjalankan fungsi secara berulutan, artinya kita tidka perlu mengunggu suatu fungsi selesai dijalankan untuk menjalankan fungsi lainnya. Approach ini berguna dalam situasi di mana ingin menjalankan beberapa tugas secara bersamaan atau saat ada tugas yang harus menunggu sumber daya eksternal, seperti permintaan HTTP atau akses database.
 
 ### Dalam penerapan JavaScript dan AJAX, terdapat penerapan paradigma event-driven programming. Jelaskan maksud dari paradigma tersebut dan sebutkan salah satu contoh penerapannya pada tugas ini.
 
@@ -835,7 +835,7 @@ Fetch API:
 - mendukung berbagai jenis permintaan HTTP, termasuk GET, POST, PUT, DELETE serta mengatur header permintaan, jenis data yang dikiri, dll
 - Tidak hanya mengambil data dari AJAX, fetch API juga mengambil sumber daya dari server seperti RESTful API atau JSON
 
-jQuery
+jQuery:
 - perlu mengunduh library jQuery
 - cocok untuk membangun website berukuran besar
 - API kaya dan lengkap dalam melakukan operasi AJAX
@@ -844,7 +844,8 @@ jQuery
 
 Menurut saya sebagai mahasiswa, teknologi yang lebih baik digunakan adalah Fetch API karena menggunakan library yang sudah built-in, tidak perlu mengunduh dari library eksternal. Selain itu untuk pemula, membangun website ringan dan berukuran kecil saja sudah cukup.
 
-### Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial).
+### Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step.
+
 Untuk mengimplementasi AJAX dalam membuat sistem refresh tabel, membuat item baru, mengincrement amount, decrement amount, serta remove item, pertama-tama saya membuat 5 function yang diperlukan nanti `views.py`
   ```py
   def get_item_json(request):
@@ -907,7 +908,7 @@ Karena data tabel berubah dari yang awalnya berasal dari context menjadi data da
   <table id="item_table" class="styled-table"></table>
   ```
 
-Untuk membuat tombol modal degnan form untuk menambahkan item, saya menghapus tombol add new item yang lama dan menggantinya menjadi:
+Untuk membuat tombol modal dengan form untuk menambahkan item, saya menghapus tombol add new item yang lama dan menggantinya menjadi:
 ```html
 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Add Item by AJAX</button>
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -1027,7 +1028,7 @@ Setelah saya membuat semua function yang diperlukan, membuat tabel kosong, serta
     }
 </script>
 ```
-Untuk mengumpulkan file static dari setiap aplikasi ke dalam suatu folder yang dapat dengan mudah disajikan pada produksi, saya menulis line baru pada `settings.py`:
+Untuk mengumpulkan file static dari setiap aplikasi ke dalam folder `productionfiles` pada root yang dapat dengan mudah disajikan pada produksi, saya menulis line baru pada `settings.py`:
    ```py
    STATIC_ROOT = BASE_DIR / 'productionfiles'
    ```
