@@ -549,7 +549,7 @@ Sedangkan otorisasi memutuskan izin (apa saja yang diperbolehkan dan tidak diper
         user = models.ForeignKey(User, on_delete=models.CASCADE)
         ...
    ```
-   Kemudian mengubah function create_product pada `views.py` pada direktori main menjadi:
+   Kemudian mengubah function create_item pada `views.py` pada direktori main menjadi:
    ```py
    def create_item(request):
    form = ItemForm(request.POST or None)   
@@ -799,6 +799,240 @@ Untuk kostumisasi halaman daftar inventory menjadi lebih berwarna saya memasukka
                 background-color: #d8c45e;
             }
 ```
+</details>
+
+<details>
+<summary>Tugas 6</summary>
+
+### Jelaskan perbedaan antara asynchronous programming dengan synchronous programming.
+
+Synchronous programming menjalankan fungsi berurutan, artinya agar dapat menjalankan fungsi berikutnya, program harus menunggu fungsi sebelumnya selesai. Aprroach ini dapat mengakibatkan waktu tunggu yang lama jika ada salah satu tugas yang memakan waktu lama.
+
+Sedangkan syncrhonous programming tidak menjalankan fungsi secara berulutan, artinya kita tidka perlu mengunggu suatu fungsi selesai dijalankan untuk menjalankan fungsi lainnya. Approach ini berguna dalam situasi di mana ingin menjalankan beberapa tugas secara bersamaan atau saat ada tugas yang harus menunggu sumber daya eksternal, seperti permintaan HTTP atau akses database.
+
+### Dalam penerapan JavaScript dan AJAX, terdapat penerapan paradigma event-driven programming. Jelaskan maksud dari paradigma tersebut dan sebutkan salah satu contoh penerapannya pada tugas ini.
+
+Event-driven programming adalah pendekatan dalam pemrograman di mana alur eksekusi program tidak ditentukan oleh urutan kode yang telah ditulis, tetapi oleh peristiwa (event) yang terjadi pada waktu tertentu.
+
+Dalam konteks JavaScript dan AJAX, penerapan event-driven programming sangat berguna karena banyak interaksi pengguna atau komunikasi dengan server yang berdasarkan event.
+
+Contohnya pada tugas ini: penggunaan event listener onClick pada button dengan id `button_add` yang akan memanggil function `addItem()` bila ada event ditekan.
+  ```js
+  document.getElementById("button_add").onclick = addItem
+  ```
+
+### Jelaskan penerapan asynchronous programming pada AJAX.
+
+AJAX (Asynchronous JavaScript and XML) menggunakan asynchronous programming pada data transfer (HTTP request) antara browser dan web server. Hal ini memungkinkan browser mengambil data dari server secara asynchronous tanpa menghentikan eksekusi kode JavaScript utama maupun me-refresh halaman browser. Sebaliknya, aplikasi akan tetap responsif dan dapat menjalankan tugas-tugas lain sambil menunggu respons dari server.
 
 
+### Pada PBP kali ini, penerapan AJAX dilakukan dengan menggunakan Fetch API daripada library jQuery. Bandingkanlah kedua teknologi tersebut dan tuliskan pendapat kamu teknologi manakah yang lebih baik untuk digunakan.
+
+Fetch API:
+- murni javascript, tidak perlu menggunakan library external
+- cocok untuk membangun website berukuran kecil
+- membuat request dengan Promise dengan async, await, dan then()
+- mendukung berbagai jenis permintaan HTTP, termasuk GET, POST, PUT, DELETE serta mengatur header permintaan, jenis data yang dikiri, dll
+- Tidak hanya mengambil data dari AJAX, fetch API juga mengambil sumber daya dari server seperti RESTful API atau JSON
+
+jQuery
+- perlu mengunduh library jQuery
+- cocok untuk membangun website berukuran besar
+- API kaya dan lengkap dalam melakukan operasi AJAX
+- mendukung cross-browser yang memudahkan dalam menangani masalah kompatibilitas
+- menyederhanakan kode yang dibutuhkan untuk melakukan permintaan AJAX dibandingkan dengan fetch API
+
+Menurut saya sebagai mahasiswa, teknologi yang lebih baik digunakan adalah Fetch API karena menggunakan library yang sudah built-in, tidak perlu mengunduh dari library eksternal. Selain itu untuk pemula, membangun website ringan dan berukuran kecil saja sudah cukup.
+
+### Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial).
+Untuk mengimplementasi AJAX dalam membuat sistem refresh tabel, membuat item baru, mengincrement amount, decrement amount, serta remove item, pertama-tama saya membuat 5 function yang diperlukan nanti `views.py`
+  ```py
+  def get_item_json(request):
+    items = Item.objects.filter(user=request.user)
+      return HttpResponse(serializers.serialize('json', items))
+  
+  @csrf_exempt
+  def create_ajax(request):
+      if request.method == 'POST':
+          name = request.POST.get("name")
+          amount = request.POST.get("amount")
+          description = request.POST.get("description")
+          user = request.user
+          new_item = Item(name=name, amount=amount, description=description, user=user)
+          new_item.save()
+          return HttpResponse(b"CREATED", status=201)
+      return HttpResponseNotFound()
+  
+  @csrf_exempt
+  def add_ajax(request):
+      if request.method == 'POST':
+          id = request.POST.get("id");
+          a = Item.objects.get(pk=id)
+          a.amount += 1
+          a.save()
+          return HttpResponse(b"CREATED", status=201)
+      return HttpResponseNotFound()
+  
+  @csrf_exempt
+  def remove_ajax(request):
+      if request.method == 'POST':
+          id = request.POST.get("id");
+          a = Item.objects.get(pk=id)
+          a.amount -= 1
+          a.save()
+          if (a.amount <= 0):
+              a.delete()
+          return HttpResponse(b"CREATED", status=201)
+      return HttpResponseNotFound()
+  
+  @csrf_exempt
+  def remove_all_ajax(request):
+      if request.method == 'POST':
+          id = request.POST.get("id");
+          a = Item.objects.get(pk=id)
+          a.delete()
+          return HttpResponse(b"CREATED", status=201)
+      return HttpResponseNotFound()
+  ```
+Kemudian saya menghubungkan kelima function tersebut ke dalam `urlpatterns`
+  ```py
+    path('get-item/', get_item_json, name='get_item_json'),
+    path('create-ajax/', create_ajax, name='create_ajax'),
+    path('add-ajax/', add_ajax, name='add_ajax'),
+    path('remove-ajax/', remove_ajax, name='remove_ajax'),
+    path('remove-all-ajax/', remove_all_ajax, name='remove_all_ajax'),
+  ```
+Karena data tabel berubah dari yang awalnya berasal dari context menjadi data dari fetch API, maka tabel yang lama saya hapus, diganti menjadi 1 line seperti berikut:
+  ```html
+  <table id="item_table" class="styled-table"></table>
+  ```
+
+Untuk membuat tombol modal degnan form untuk menambahkan item, saya menghapus tombol add new item yang lama dan menggantinya menjadi:
+```html
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Add Item by AJAX</button>
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Add New Item</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="form" onsubmit="return false;">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="name" class="col-form-label">Name:</label>
+                        <input type="text" class="form-control" id="name" name="name"></input>
+                    </div>
+                    <div class="mb-3">
+                        <label for="price" class="col-form-label">Amount:</label>
+                        <input type="number" class="form-control" id="amount" name="amount"></input>
+                    </div>
+                    <div class="mb-3">
+                        <label for="description" class="col-form-label">Description:</label>
+                        <textarea class="form-control" id="description" name="description"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="button_add" data-bs-dismiss="modal">Add Item</button>
+            </div>
+        </div>
+    </div>
+</div>
+```
+
+Setelah saya membuat semua function yang diperlukan, membuat tabel kosong, serta menyiapkan modal. Sekarang yang dilakukan adalah membuat JavaScript di bawah main.html agar semua elemen tersebut berjalan dengan baik.
+```html
+<script>
+    async function getItems() {
+        return fetch("{% url 'main:get_item_json' %}").then((res) => res.json())
+    }
+    async function refreshItems() {
+        const items = await getItems()
+        let htmlString = `<tr>
+            <th>Name</th>
+            <th>Amount</th>
+            <th>Description</th>
+            <th>Date Added</th>
+            <th>Add 1</th>
+            <th>Remove 1</th>
+            <th>Remove All</th>
+        </tr>`
+
+        items.forEach((item) => {
+            htmlString += `\n<tr>
+            <td>${item.fields.name}</td>
+            <td>${item.fields.amount}</td>
+            <td>${item.fields.description}</td>
+            <td>${item.fields.date_added}</td>
+            <td><button class="edit" onclick="addItemAmount(${item.pk})">+</button></td>
+            <td><button class="edit" onclick="removeItemAmount(${item.pk})"">-</button></td>
+            <td><button class="edit" onclick="removeItem(${item.pk})">X</button></td>
+        </tr>` 
+        })
+        document.getElementById("item_table").innerHTML = htmlString
+    }
+
+    refreshItems()
+
+    function addItem() {
+        
+        fetch("{% url 'main:create_ajax' %}", {
+            method: "POST",
+            body: new FormData(document.querySelector('#form'))
+        }).then(refreshItems)
+
+        document.getElementById("form").reset()
+        return false
+    }
+
+    document.getElementById("button_add").onclick = addItem
+
+    function addItemAmount(pk){
+
+        const formData = new FormData()
+        formData.append("id", pk)
+
+        fetch("{% url 'main:add_ajax' %}",{
+            method: "POST",
+            body: formData
+        }).then(refreshItems)
+    }
+
+    function removeItemAmount(pk){
+
+        const formData = new FormData()
+        formData.append("id", pk)
+
+        fetch("{% url 'main:remove_ajax' %}",{
+            method: "POST",
+            body: formData
+        }).then(refreshItems)
+
+        return false
+    }
+    function removeItem(pk){
+
+        const formData = new FormData()
+        formData.append("id", pk)
+
+        fetch("{% url 'main:remove_all_ajax' %}",{
+            method: "POST",
+            body: formData
+        }).then(refreshItems)
+
+        return false
+    }
+</script>
+```
+Untuk mengumpulkan file static dari setiap aplikasi ke dalam suatu folder yang dapat dengan mudah disajikan pada produksi, saya menulis line baru pada `settings.py`:
+   ```py
+   STATIC_ROOT = BASE_DIR / 'productionfiles'
+   ```
+Kemudian menjalankan command 
+   ```
+   python manage.py collectstatic
+   ```
 </details>

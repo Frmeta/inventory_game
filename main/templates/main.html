@@ -106,7 +106,6 @@ Kamu menyimpan {{items_amount}} jenis item pada aplikasi ini
         </div>
     </div>
 </div>
-<p id="fredo"></p>
 
 <script>
     async function getItems() {
@@ -115,6 +114,7 @@ Kamu menyimpan {{items_amount}} jenis item pada aplikasi ini
 
     async function refreshItems() {
         const items = await getItems()
+        // items = items.filter(user=user)
 
         let htmlString = `<tr>
             <th>Name</th>

@@ -57,6 +57,7 @@ def show_main(request):
         'items': items,
         'last_login': request.COOKIES['last_login'],
         'user_name' : request.user.username,
+        'user' : request.user
     }
 
     return render(request, "main.html", context)
@@ -118,7 +119,7 @@ def remove_all(request, id):
     return redirect('main:show_main')
 
 def get_item_json(request):
-    items = Item.objects.all()
+    items = Item.objects.filter(user=request.user)
     return HttpResponse(serializers.serialize('json', items))
 
 @csrf_exempt
