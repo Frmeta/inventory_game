@@ -1,6 +1,8 @@
 # Inventory: The Game
 Ini adalah repository Github untuk projek Inventory: The game!
-Tautan menuju aplikasi Adaptable: https://inventory-game.adaptable.app/main/
+Tautan menuju tugas: https://fredo-melvern-tugas.pbp.cs.ui.ac.id/
+Tautan menuju tutorial: http://fredo-melvern-tutorial.pbp.cs.ui.ac.id
+
 
 ![google](/PNG/Title.png)
 
@@ -808,7 +810,7 @@ Untuk kostumisasi halaman daftar inventory menjadi lebih berwarna saya memasukka
 
 Synchronous programming menjalankan fungsi berurutan, artinya agar dapat menjalankan fungsi berikutnya, program harus menunggu fungsi sebelumnya selesai. Aprroach ini dapat mengakibatkan waktu tunggu yang lama jika ada salah satu tugas yang memakan waktu lama.
 
-Sedangkan asyncrhonous programming tidak menjalankan fungsi secara berulutan, artinya kita tidka perlu mengunggu suatu fungsi selesai dijalankan untuk menjalankan fungsi lainnya. Approach ini berguna dalam situasi di mana ingin menjalankan beberapa tugas secara bersamaan atau saat ada tugas yang harus menunggu sumber daya eksternal, seperti permintaan HTTP atau akses database.
+Sedangkan asyncrhonous programming tidak menjalankan fungsi secara berurutan, artinya kita tidka perlu mengunggu suatu fungsi selesai dijalankan untuk menjalankan fungsi lainnya. Approach ini berguna dalam situasi di mana ingin menjalankan beberapa tugas secara bersamaan atau saat ada tugas yang harus menunggu sumber daya eksternal, seperti permintaan HTTP atau akses database.
 
 ### Dalam penerapan JavaScript dan AJAX, terdapat penerapan paradigma event-driven programming. Jelaskan maksud dari paradigma tersebut dan sebutkan salah satu contoh penerapannya pada tugas ini.
 
@@ -816,7 +818,7 @@ Event-driven programming adalah pendekatan dalam pemrograman di mana alur ekseku
 
 Dalam konteks JavaScript dan AJAX, penerapan event-driven programming sangat berguna karena banyak interaksi pengguna atau komunikasi dengan server yang berdasarkan event.
 
-Contohnya pada tugas ini: penggunaan event listener onClick pada button dengan id `button_add` yang akan memanggil function `addItem()` bila ada event ditekan.
+Contohnya pada tugas ini: penggunaan event listener onclick pada button dengan id `button_add` yang akan memanggil function `addItem()` bila ada event ditekan.
   ```js
   document.getElementById("button_add").onclick = addItem
   ```
