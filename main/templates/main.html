@@ -32,7 +32,7 @@
 <p>
 Kamu menyimpan {{items_amount}} jenis item pada aplikasi ini
 
-<table class="styled-table">
+<!-- <table class="styled-table">
     <tr>
         <th>Name</th>
         <th>Amount</th>
@@ -56,16 +56,142 @@ Kamu menyimpan {{items_amount}} jenis item pada aplikasi ini
             <td><a href="/remove-all/{{item.pk}}/"><button class="edit">X</button></a></td>
         </tr>
     {% endfor %}
+</table> -->
+
+<table id="item_table" class="styled-table">
+
 </table>
 
 <br />
 
 <h5>Sesi terakhir login: {{ last_login }}</h5>
 
-<a href="{% url 'main:create_item' %}">
+<!-- <a href="{% url 'main:create_item' %}">
     <button class="add-new">
         Add New Item
     </button>
-</a>
+</a> -->
+
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Add Item by AJAX</button>
+
+<!-- MODAL ADD ITEM-->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Add New Item</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="form" onsubmit="return false;">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="name" class="col-form-label">Name:</label>
+                        <input type="text" class="form-control" id="name" name="name"></input>
+                    </div>
+                    <div class="mb-3">
+                        <label for="price" class="col-form-label">Amount:</label>
+                        <input type="number" class="form-control" id="amount" name="amount"></input>
+                    </div>
+                    <div class="mb-3">
+                        <label for="description" class="col-form-label">Description:</label>
+                        <textarea class="form-control" id="description" name="description"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="button_add" data-bs-dismiss="modal">Add Item</button>
+            </div>
+        </div>
+    </div>
+</div>
+<p id="fredo"></p>
+
+<script>
+    async function getItems() {
+        return fetch("{% url 'main:get_item_json' %}").then((res) => res.json())
+    }
+
+    async function refreshItems() {
+        const items = await getItems()
+
+        let htmlString = `<tr>
+            <th>Name</th>
+            <th>Amount</th>
+            <th>Description</th>
+            <th>Date Added</th>
+            <th>Add 1</th>
+            <th>Remove 1</th>
+            <th>Remove All</th>
+        </tr>`
+
+        items.forEach((item) => {
+            htmlString += `\n<tr>
+            <td>${item.fields.name}</td>
+            <td>${item.fields.amount}</td>
+            <td>${item.fields.description}</td>
+            <td>${item.fields.date_added}</td>
+            <td><button class="edit" onclick="addItemAmount(${item.pk})">+</button></td>
+            <td><button class="edit" onclick="removeItemAmount(${item.pk})"">-</button></td>
+            <td><button class="edit" onclick="removeItem(${item.pk})">X</button></td>
+        </tr>` 
+        })
+        
+        document.getElementById("item_table").innerHTML = htmlString
+    }
+
+    refreshItems()
+
+    function addItem() {
+        
+        fetch("{% url 'main:create_ajax' %}", {
+            method: "POST",
+            body: new FormData(document.querySelector('#form'))
+        }).then(refreshItems)
+
+        document.getElementById("form").reset()
+        return false
+    }
+
+    document.getElementById("button_add").onclick = addItem
+
+    function addItemAmount(pk){
+
+        const formData = new FormData()
+        formData.append("id", pk)
+
+        fetch("{% url 'main:add_ajax' %}",{
+            method: "POST",
+            body: formData
+        }).then(refreshItems)
+    }
+
+    function removeItemAmount(pk){
+
+        const formData = new FormData()
+        formData.append("id", pk)
+
+        fetch("{% url 'main:remove_ajax' %}",{
+            method: "POST",
+            body: formData
+        }).then(refreshItems)
+
+        return false
+    }
+    function removeItem(pk){
+
+        const formData = new FormData()
+        formData.append("id", pk)
+
+        fetch("{% url 'main:remove_all_ajax' %}",{
+            method: "POST",
+            body: formData
+        }).then(refreshItems)
+
+        return false
+    }
+
+</script>
 
 {% endblock content %}
