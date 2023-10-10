@@ -58,9 +58,10 @@ Kamu menyimpan {{items_amount}} jenis item pada aplikasi ini
     {% endfor %}
 </table> -->
 
-<table id="item_table" class="styled-table">
+<!-- <table id="item_table" class="styled-table"> </table>-->
+<div id="item_table" class="row"></div>
 
-</table>
+
 
 <br />
 
@@ -114,28 +115,45 @@ Kamu menyimpan {{items_amount}} jenis item pada aplikasi ini
 
     async function refreshItems() {
         const items = await getItems()
-        // items = items.filter(user=user)
 
-        let htmlString = `<tr>
-            <th>Name</th>
-            <th>Amount</th>
-            <th>Description</th>
-            <th>Date Added</th>
-            <th>Add 1</th>
-            <th>Remove 1</th>
-            <th>Remove All</th>
-        </tr>`
+        let htmlString = ""
+        // htmlString += `<tr>
+        //     <th>Name</th>
+        //     <th>Amount</th>
+        //     <th>Description</th>
+        //     <th>Date Added</th>
+        //     <th>Add 1</th>
+        //     <th>Remove 1</th>
+        //     <th>Remove All</th>
+        // </tr>`
+
+        // items.forEach((item) => {
+        //     htmlString += `\n<tr>
+        //     <td>${item.fields.name}</td>
+        //     <td>${item.fields.amount}</td>
+        //     <td>${item.fields.description}</td>
+        //     <td>${item.fields.date_added}</td>
+        //     <td><button class="edit" onclick="addItemAmount(${item.pk})">+</button></td>
+        //     <td><button class="edit" onclick="removeItemAmount(${item.pk})">-</button></td>
+        //     <td><button class="edit" onclick="removeItem(${item.pk})">X</button></td>
+        // </tr>` 
+        // })
 
         items.forEach((item) => {
-            htmlString += `\n<tr>
-            <td>${item.fields.name}</td>
-            <td>${item.fields.amount}</td>
-            <td>${item.fields.description}</td>
-            <td>${item.fields.date_added}</td>
-            <td><button class="edit" onclick="addItemAmount(${item.pk})">+</button></td>
-            <td><button class="edit" onclick="removeItemAmount(${item.pk})"">-</button></td>
-            <td><button class="edit" onclick="removeItem(${item.pk})">X</button></td>
-        </tr>` 
+            htmlString += `\n <div class="col-sm-4">
+            <div class="card text-dark bg-warning mb-3" style="max-width: 36rem;">
+                <div class="card-body">
+                    <h5 class="card-title">${item.fields.name}</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">Amount: ${item.fields.amount}</h6>
+                    <p class="card-text">${item.fields.description}</p>
+                    <p class="card-text">${item.fields.date_added}</p>
+                    <a href="#" class="btn btn-primary" onclick="addItemAmount(${item.pk})">+</a>
+                    <a href="#" class="btn btn-primary" onclick="removeItemAmount(${item.pk})">-</a>
+                    <a href="#" class="btn btn-primary" onclick="removeItem(${item.pk})">X</a>
+                </div>
+            </div>
+            </div>`
+            
         })
         
         document.getElementById("item_table").innerHTML = htmlString

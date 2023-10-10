@@ -1030,12 +1030,41 @@ Setelah saya membuat semua function yang diperlukan, membuat tabel kosong, serta
     }
 </script>
 ```
-Untuk mengumpulkan file static dari setiap aplikasi ke dalam folder `productionfiles` pada root yang dapat dengan mudah disajikan pada produksi, saya menulis line baru pada `settings.py`:
+Untuk mengumpulkan file static dari setiap aplikasi ke dalam folder `static` pada root yang dapat dengan mudah disajikan pada produksi, saya menulis line baru pada `settings.py`:
    ```py
-   STATIC_ROOT = BASE_DIR / 'productionfiles'
+   STATIC_ROOT = os.path.join(BASE_DIR, 'static')
    ```
 Kemudian menjalankan command 
    ```
    python manage.py collectstatic
    ```
+
+Untuk mengubah tampilan inventory menjadi cards, ganti tabel menjadi:
+  ```html
+  <!-- <table id="item_table" class="styled-table"> </table>-->
+  <div id="item_table" class="row"></div>
+  ```
+Kemudian pada for loop pembuatan tabel saat di-refresh, ganti menjadi:
+  ```js
+  items.forEach((item) => {
+    htmlString += `\n <div class="col-sm-4">
+    <div class="card text-dark bg-warning mb-3" style="max-width: 36rem;">
+        <div class="card-body">
+            <h5 class="card-title">${item.fields.name}</h5>
+            <h6 class="card-subtitle mb-2 text-muted">Amount: ${item.fields.amount}</h6>
+            <p class="card-text">${item.fields.description}</p>
+            <p class="card-text">${item.fields.date_added}</p>
+            <a href="#" class="btn btn-primary" onclick="addItemAmount(${item.pk})">+</a>
+            <a href="#" class="btn btn-primary" onclick="removeItemAmount(${item.pk})">-</a>
+            <a href="#" class="btn btn-primary" onclick="removeItem(${item.pk})">X</a>
+        </div>
+    </div>
+    </div>`
+    
+  })
+  ```
+Namun ketika discroll, card akan overlap dengan navbar. Maka pada css navbar, saya tambahkan:
+  ```css
+  z-index: 1;
+  ```
 </details>
