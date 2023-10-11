@@ -1063,7 +1063,7 @@ Kemudian pada for loop pembuatan tabel saat di-refresh, ganti menjadi:
     
   })
   ```
-Namun ketika discroll, card akan overlap dengan navbar. Maka pada css navbar, saya tambahkan:
+Namun ketika discroll, card akan overlap dengan navbar. Maka pada css navbar, saya tambahkan kode berikut:
   ```css
   z-index: 1;
   ```
