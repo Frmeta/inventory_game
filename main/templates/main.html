@@ -138,9 +138,12 @@ Kamu menyimpan {{items_amount}} jenis item pada aplikasi ini
         //     <td><button class="edit" onclick="removeItem(${item.pk})">X</button></td>
         // </tr>` 
         // })
+        let htmlStringTemp = '';
+        const cardContainer = document.getElementById("item_table");
+        cardContainer.innerHTML = '';
 
-        items.forEach((item) => {
-            htmlString += `\n <div class="col-sm-4">
+        items.forEach((item, index) => {
+            htmlStringTemp += `\n <div class="col-sm-4">
             <div class="card text-dark bg-warning mb-3" style="max-width: 36rem;">
                 <div class="card-body">
                     <h5 class="card-title">${item.fields.name}</h5>
@@ -153,10 +156,18 @@ Kamu menyimpan {{items_amount}} jenis item pada aplikasi ini
                 </div>
             </div>
             </div>`
+
+            if ((index + 1) % 3 === 0 || index === items.length - 1) {
+                const row = document.createElement('div');
+                row.className = 'row';
+                row.innerHTML = htmlStringTemp;
+                cardContainer.appendChild(row);
+                htmlStringTemp = ''; // Reset for the next row
+            }
             
         })
         
-        document.getElementById("item_table").innerHTML = htmlString
+        //document.getElementById("item_table").innerHTML = htmlString
     }
 
     refreshItems()
