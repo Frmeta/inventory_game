@@ -655,8 +655,8 @@ Sedangkan otorisasi memutuskan izin (apa saja yang diperbolehkan dan tidak diper
 - Pseudo-elements selectors:
   - Untuk memilih bagian spesifik dari elemen, misalnya huruf pertama.
   - Digunakan saat ingin menambahkan styling tambahan pada elemen
-- Attribute selectors ([attribute]):
 
+- Attribute selectors ([attribute]):
   - Untuk memilih elemen dengan atribut HTML tertentu.
   - Digunakan saat ingin memilih elemen yang memiliki atribut tertenty, misalnya  `input[type="text"]`.
 

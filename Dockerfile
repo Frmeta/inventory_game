@@ -28,5 +28,7 @@ RUN python manage.py collectstatic --noinput --clear
 RUN chown -R django:django /app
 USER django
 
+# EXPOSE 8080
+
 # Run application
 # CMD gunicorn inventory_game.wsgi:application
