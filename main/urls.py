@@ -27,5 +27,4 @@ urlpatterns = [
     # Flutter
     path('create-flutter/', create_product_flutter, name='create_product_flutter'),
 
-
 ]
