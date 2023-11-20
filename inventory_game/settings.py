@@ -14,8 +14,6 @@ from pathlib import Path
 import environ
 import os
 
-
-# Dari tutorial 8
 CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_CREDENTIALS = True
 CSRF_COOKIE_SECURE = True
