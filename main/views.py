@@ -181,7 +181,6 @@ def remove_all_ajax(request):
 @csrf_exempt
 def create_product_flutter(request):
     if request.method == 'POST':
-        
         data = json.loads(request.body)
 
         new_product = Item.objects.create(
@@ -194,6 +193,7 @@ def create_product_flutter(request):
         new_product.save()
 
         return JsonResponse({"status": "success"}, status=200)
+    
     else:
         return JsonResponse({"status": "error"}, status=401)
 
